@@ -5,10 +5,8 @@ import Sidebar from './Sidebar'; // 导入侧边导航栏组件
 const HomePage = () => {
   return (
     <div>
-      <Header /> {/* 头部导航栏 */}
       <div className="container">
-        <Sidebar /> {/* 侧边导航栏 */}
-        {/* 主要内容 */}
+      <h2>主页</h2>
       </div>
     </div>
   );

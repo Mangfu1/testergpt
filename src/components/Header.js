@@ -1,30 +1,38 @@
 // Header.js
 
-import { Box, Heading, Flex, IconButton, Spacer, Badge, Avatar, Breadcrumb, BreadcrumbItem, BreadcrumbLink } from '@chakra-ui/react';
-import { HamburgerIcon, SearchIcon, BellIcon, ChatIcon } from '@chakra-ui/icons';
+import { Box, IconButton, ButtonGroup, Button, Menu, MenuButton, MenuList, MenuItem, useColorMode, CSSReset, ChakraProvider, extendTheme } from '@chakra-ui/react';
+import { ChevronDownIcon } from '@chakra-ui/icons';
+import { MdLanguage, MdNotifications, MdAccountCircle } from 'react-icons/md';
+import { FaMoon, FaSun } from 'react-icons/fa';
 
 function Header() {
+  const { colorMode, toggleColorMode } = useColorMode();
+
   return (
-    <Flex bg="blue.500" color="white" p="2" alignItems="center" height="60px">
-      <IconButton icon={<HamburgerIcon />} variant="outline" colorScheme="whiteAlpha" />
-      <Breadcrumb ml="4" color="white" fontSize="sm">
-        <BreadcrumbItem>
-          <BreadcrumbLink href="#">仪表盘</BreadcrumbLink>
-        </BreadcrumbItem>
-        <BreadcrumbItem>
-          <BreadcrumbLink href="#">分析</BreadcrumbLink>
-        </BreadcrumbItem>
-      </Breadcrumb>
-      <Spacer />
-      <IconButton icon={<SearchIcon />} variant="outline" colorScheme="whiteAlpha" />
-      <IconButton icon={<BellIcon />} variant="outline" colorScheme="whiteAlpha" ml="2">
-        <Badge colorScheme="red" borderRadius="full" boxSize="1.25em" ml="-0.8em" mt="-0.8em">4</Badge>
-      </IconButton>
-      <IconButton icon={<ChatIcon />} variant="outline" colorScheme="whiteAlpha" ml="2">
-        <Badge colorScheme="red" borderRadius="full" boxSize="1.25em" ml="-0.8em" mt="-0.8em">2</Badge>
-      </IconButton>
-      <Avatar size="sm" name="User Name" src="https://bit.ly/broken-link" ml="4" />
-    </Flex>
+    <Box  display="flex" justifyContent="flex-end" fontFamily="Roboto, sans-serif">
+      <ButtonGroup variant="outline" spacing="3">
+        <Menu>
+          <MenuButton as={Button} leftIcon={<MdLanguage />} rightIcon={<ChevronDownIcon />}>
+            Language
+          </MenuButton>
+          <MenuList>
+            <MenuItem>English</MenuItem>
+            <MenuItem>中文</MenuItem>
+          </MenuList>
+        </Menu>
+        <IconButton icon={colorMode === 'light' ? <FaSun /> : <FaMoon />} onClick={toggleColorMode} />
+        <IconButton icon={<MdNotifications />} />
+        <Menu>
+          <MenuButton as={Button} leftIcon={<MdAccountCircle />}>
+            Profile
+          </MenuButton>
+          <MenuList>
+            <MenuItem>My Account</MenuItem>
+            <MenuItem>Logout</MenuItem>
+          </MenuList>
+        </Menu>
+      </ButtonGroup>
+    </Box>
   );
 }
 

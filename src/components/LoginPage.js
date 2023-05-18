@@ -9,6 +9,8 @@ import { FaMoon, FaSun, FaGoogle } from 'react-icons/fa';
 import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 import { useNavigate  } from 'react-router-dom';
 
+import { AiOutlineGoogle } from "react-icons/ai"; //谷歌图标
+
 import HomePage from '../components/HomePage';
 
 const MotionBox = motion(Box);
@@ -45,14 +47,8 @@ const LoginPage = () => {
         transition: "slide",
       });
       login();
-      try {
-        {console.log("333333333333333333333333333333333")}
-        navigate('/home');
-        {console.log("333333333333333333333333333333333")}
-        return <button onClick={HomePage}>Go to home</button>;
-      } catch (error) {
-        console.log(error);
-      }
+      navigate('/home');
+
     } else {
       toast({
         title: "登录失败",
@@ -183,7 +179,7 @@ return (
           <Text mb="4" textAlign="center" fontSize="lg" color={colorMode === 'light' ? 'gray.500' : 'gray.400'}>
             输入您的电子邮件和密码进行登录
           </Text>
-          <MotionButton leftIcon={<FaGoogle />} colorScheme="blue" variant="solid" mb="4" w="350px" onClick={handleGoogleSignIn} whileHover={{ scale: 1.05 }}>
+          <MotionButton leftIcon={<AiOutlineGoogle />} colorScheme="blue" variant="solid" mb="4" w="350px" onClick={handleGoogleSignIn} whileHover={{ scale: 1.05 }}>
             使用 Google 账号登录
           </MotionButton>
           <FormComponent />
