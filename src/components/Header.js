@@ -1,15 +1,20 @@
-// Header.js
-
-import { Box, IconButton, ButtonGroup, Button, Menu, MenuButton, MenuList, MenuItem, useColorMode, CSSReset, ChakraProvider, extendTheme } from '@chakra-ui/react';
-import { ChevronDownIcon } from '@chakra-ui/icons';
+import { Box, IconButton, ButtonGroup, Button, Menu, MenuButton, MenuList, MenuItem, useColorMode } from '@chakra-ui/react';
+import { ChevronDownIcon, HamburgerIcon } from '@chakra-ui/icons';
 import { MdLanguage, MdNotifications, MdAccountCircle } from 'react-icons/md';
 import { FaMoon, FaSun } from 'react-icons/fa';
 
-function Header() {
+function Header({ onMenuButtonClick, isMenuButtonVisible }) {
   const { colorMode, toggleColorMode } = useColorMode();
 
   return (
-    <Box  display="flex" justifyContent="flex-end" fontFamily="Roboto, sans-serif">
+    <Box display="flex" justifyContent="flex-end" fontFamily="Roboto, sans-serif">
+      {isMenuButtonVisible && (
+        <IconButton
+          icon={<HamburgerIcon />}
+          onClick={onMenuButtonClick}
+          mr="3"
+        />
+      )}
       <ButtonGroup variant="outline" spacing="3">
         <Menu>
           <MenuButton as={Button} leftIcon={<MdLanguage />} rightIcon={<ChevronDownIcon />}>
