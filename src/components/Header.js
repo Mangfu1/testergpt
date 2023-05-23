@@ -1,3 +1,5 @@
+// Header.js
+
 import { Box, IconButton, ButtonGroup, Button, Menu, MenuButton, MenuList, MenuItem, useColorMode } from '@chakra-ui/react';
 import { ChevronDownIcon, HamburgerIcon } from '@chakra-ui/icons';
 import { MdLanguage, MdNotifications, MdAccountCircle } from 'react-icons/md';
@@ -7,12 +9,11 @@ function Header({ onMenuButtonClick, isMenuButtonVisible }) {
   const { colorMode, toggleColorMode } = useColorMode();
 
   return (
-    <Box display="flex" justifyContent="flex-end" fontFamily="Roboto, sans-serif">
+    <Box display="flex" justifyContent={isMenuButtonVisible ? "space-between" : "flex-end"} fontFamily="Roboto, sans-serif">
       {isMenuButtonVisible && (
         <IconButton
           icon={<HamburgerIcon />}
           onClick={onMenuButtonClick}
-          mr="3"
         />
       )}
       <ButtonGroup variant="outline" spacing="3">

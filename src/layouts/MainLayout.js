@@ -5,6 +5,7 @@ import Sidebar from '../components/Sidebar';
 import { Routes, Route } from 'react-router-dom';
 import HomePage from '../components/HomePage';
 import LoginPage from '../components/LoginPage';
+import ChatGPT from '../components/ChatApp';
 
 function MainLayout() {
   const { colorMode } = useColorMode();
@@ -19,7 +20,7 @@ function MainLayout() {
           <Sidebar />
         </Box>
       )}
-      <Box flex="1" display="flex" flexDirection="column">
+      <Box flex="1" display="flex" flexDirection="column" minHeight="100vh">
         <Box bg={colorMode === 'light' ? '#FFFFFF' : '#303248'} color={colorMode === 'light' ? '#605e6b' : '#d3d5e0'} p="2.5" borderRadius="lg" boxShadow="md" m="3">
           <Header onMenuButtonClick={onOpen} isMenuButtonVisible={isMobile} />
         </Box>
@@ -27,10 +28,12 @@ function MainLayout() {
           <Routes>
             <Route path="home" element={<HomePage />} />
             <Route path="/login" element={<LoginPage />} />
+            <Route path="/chat" element={<ChatGPT />} />
             {/* ...其他路由 */}
           </Routes>
         </Box>
       </Box>
+
       {isMobile && (
         <Drawer isOpen={isOpen} placement="left" onClose={onClose}>
           <DrawerOverlay>
