@@ -2,10 +2,7 @@
 ##支持深浅主题
 ![image](https://github.com/Mangfu1/testergpt/assets/130970327/8fcac70b-84dc-4e9f-b76f-d8a8a6b32ab7)
 ![image](https://github.com/Mangfu1/testergpt/assets/130970327/79c117ba-af63-467d-8cef-bf2decc63963)
-![image](https://github.com/Mangfu1/testergpt/assets/130970327/ef6dbb96-9b41-4571-9a4e-42b4ab27bf2c)
-![image](https://github.com/Mangfu1/testergpt/assets/130970327/e7f102e2-f17e-4735-acd8-45d0fb79b804)
 
-![image](https://github.com/Mangfu1/testergpt/assets/130970327/0b9120a7-2eb0-4057-9a88-167da6d90dc5)
 
 的
 ## Getting Started with Create React App
