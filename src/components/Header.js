@@ -4,6 +4,7 @@ import { Box, IconButton, ButtonGroup, Button, Menu, MenuButton, MenuList, MenuI
 import { ChevronDownIcon, HamburgerIcon } from '@chakra-ui/icons';
 import { MdLanguage, MdNotifications, MdAccountCircle } from 'react-icons/md';
 import { FaMoon, FaSun } from 'react-icons/fa';
+import PersonalInformationPage from '../components/PersonalInformationPage'
 
 function Header({ onMenuButtonClick, isMenuButtonVisible }) {
   const { colorMode, toggleColorMode } = useColorMode();
@@ -33,7 +34,7 @@ function Header({ onMenuButtonClick, isMenuButtonVisible }) {
             Profile
           </MenuButton>
           <MenuList>
-            <MenuItem>My Account</MenuItem>
+            <MenuItem><PersonalInformationPage email="1@1" name="陈前"/></MenuItem>
             <MenuItem>Logout</MenuItem>
           </MenuList>
         </Menu>

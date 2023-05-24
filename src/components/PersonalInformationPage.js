@@ -1,10 +1,13 @@
-import { Box, Button, Modal, ModalContent, ModalHeader, ModalOverlay, useDisclosure, ModalCloseButton, ModalBody, ModalFooter, Avatar, Wrap, WrapItem, List, ListItem, ListIcon, MdCheckCircle } from '@chakra-ui/react';
+import { Button, Modal, ModalContent, ModalHeader, ModalOverlay, useDisclosure, ModalCloseButton, ModalBody, ModalFooter, Avatar, Wrap, WrapItem, List, ListItem, Text } from '@chakra-ui/react';
+import TextEdit from "../components/TextEdit"
 
-function PersonalInformationPage() {
+
+
+function PersonalInformationPage(props) {
   const { isOpen, onOpen, onClose } = useDisclosure()
   return (
     <>
-      <Button onClick={onOpen}>个人信息</Button>
+      <Text onClick={onOpen}>个人信息</Text>
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay/>
         <ModalContent>
@@ -19,10 +22,10 @@ function PersonalInformationPage() {
             
             <List spacing={3}>
               <ListItem>
-                邮箱: 1@1
+                邮箱: <TextEdit text={props.email}/>
               </ListItem>
               <ListItem>
-                姓名: 陈前
+                姓名: <TextEdit text={props.name}/>
               </ListItem>
             </List>
           </ModalBody>
