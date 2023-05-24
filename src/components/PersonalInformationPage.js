@@ -1,4 +1,4 @@
-import { Button, Modal, ModalContent, ModalHeader, ModalOverlay, useDisclosure, ModalCloseButton, ModalBody, ModalFooter, Avatar, Wrap, WrapItem, List, ListItem, Text } from '@chakra-ui/react';
+import { Button, Modal, ModalContent, ModalHeader, MenuItem, ModalOverlay, useDisclosure, ModalCloseButton, ModalBody, ModalFooter, Avatar, Wrap, WrapItem, List, ListItem, Text } from '@chakra-ui/react';
 import TextEdit from "../components/TextEdit"
 
 
@@ -7,8 +7,8 @@ function PersonalInformationPage(props) {
   const { isOpen, onOpen, onClose } = useDisclosure()
   return (
     <>
-      <Text onClick={onOpen}>个人信息</Text>
-      <Modal isOpen={isOpen} onClose={onClose}>
+      <MenuItem onClick={onOpen}>个人信息</MenuItem>
+      <Modal isOpen={isOpen} onClose={onClose}> 
         <ModalOverlay/>
         <ModalContent>
           <ModalHeader>个人信息</ModalHeader>

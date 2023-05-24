@@ -34,7 +34,7 @@ function Header({ onMenuButtonClick, isMenuButtonVisible }) {
             Profile
           </MenuButton>
           <MenuList>
-            <MenuItem><PersonalInformationPage email="1@1" name="陈前"/></MenuItem>
+            <PersonalInformationPage email="1@1" name="陈前"/>
             <MenuItem>Logout</MenuItem>
           </MenuList>
         </Menu>
