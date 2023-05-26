@@ -14,7 +14,7 @@
     "@testing-library/user-event": "^13.5.0",
     "axios": "^1.4.0",
     "eslint": "^8.41.0",
-    "framer-motion": "^10.12.11",
+    "framer-motion": "^10.12.14",
     "jest": "^27.5.1",
     "openai": "^3.2.1",
     "prettier": "^2.8.8",
