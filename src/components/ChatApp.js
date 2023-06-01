@@ -1,13 +1,5 @@
-//chatApp.js
-import {
-  Box,
-  Input,
-  Button,
-  Avatar,
-  Flex,
-  Textarea,
-} from "@chakra-ui/react";
-import { useState } from "react";
+import { Box, Input, Button, Avatar, Flex, Textarea } from "@chakra-ui/react";
+import { useState, useRef, useEffect } from "react";
 import ReactMarkdown from "react-markdown";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { solarizedlight } from "react-syntax-highlighter/dist/esm/styles/prism";
@@ -20,16 +12,20 @@ const ChatApp = () => {
     "你是 ChatGPT，一个由 OpenAI 训练的大型语言模型。请仔细遵循用户的指示。使用 Markdown 格式进行回应。"
   );
   const [currentAssistantMessage, setCurrentAssistantMessage] = useState("");
+  const chatContainerRef = useRef(null);
+
+  useEffect(() => {
+    chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
+  }, [chatMessages]);
 
   const CodeRenderer = ({ language, value }) => (
-    
     <Box>
-            {console.log("有代码")}
-            <SyntaxHighlighter
-      style={solarizedlight}
-      language={language ? language : 'javascript'} // 默认为javascript
-      children={value}
-    />
+      {console.log("有代码")}
+      <SyntaxHighlighter
+        style={solarizedlight}
+        language={language ? language : "javascript"} // 默认为javascript
+        children={value}
+      />
 
       <CopyToClipboard text={value}>
         <Button>Copy</Button>
@@ -43,7 +39,7 @@ const ChatApp = () => {
       { role: "user", content: message },
     ]);
     postStreamList((text, done) => {
-      setCurrentAssistantMessage(text);
+      setCurrentAssistantMessage((prevMessage) => prevMessage + text);
       if (done === "[DONE]") {
         setChatMessages((prevChat) => [
           ...prevChat,
@@ -57,16 +53,21 @@ const ChatApp = () => {
 
   const postStreamList = async (callback) => {
     const requestOptions = {
-      method: 'POST',
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json'
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        "model": "gpt-3.5-turbo",
-        "messages": [{ role: 'system', content: systemMessage }].concat(chatMessages.concat({ role: 'user', content: message }))
-      })
+        model: "gpt-3.5-turbo",
+        messages: [
+          { role: "system", content: systemMessage },
+        ].concat(chatMessages.concat({ role: "user", content: message })),
+      }),
     };
-    const streamResponse = await fetch('http://45.145.73.161:3001/chat', requestOptions);
+    const streamResponse = await fetch(
+      "http://45.145.73.161:3001/chat",
+      requestOptions
+    );
     const reader = streamResponse.body.getReader();
     let errText = "";
     let assistantText = "";
@@ -80,7 +81,9 @@ const ChatApp = () => {
         }
 
         const textDecoder = new TextDecoder();
-        const strArr = (errText + textDecoder.decode(value)).split("data: ");
+        const strArr = (
+          errText + textDecoder.decode(value)
+        ).split("data: ");
         if (strArr) {
           for (let i = 0; i < strArr.length; i++) {
             let json = {};
@@ -89,12 +92,11 @@ const ChatApp = () => {
                 json = JSON.parse(strArr[i]);
                 if (json.choices.length && json.choices[0].delta.content) {
                   assistantText += json.choices[0].delta.content;
-                  
-                  callback(assistantText); // Call the callback with the current assistant text
+                  callback(json.choices[0].delta.content);
+                  errText = "";
                 }
-                errText = "";
               } catch (e) {
-                console.log("Error", strArr[i])
+                console.log("Error", strArr[i]);
                 errText = strArr[i];
               }
             }
@@ -102,38 +104,45 @@ const ChatApp = () => {
         }
         return read();
       });
-    }
+    };
 
     read();
-  }
+  };
 
   return (
-    <Box>
-      <Textarea
-        placeholder="Enter system message"
-        value={systemMessage}
-        onChange={(e) => setSystemMessage(e.target.value)}
-      />
-      <Input
-        placeholder="Enter your message"
-        value={message}
-        onChange={(e) => setMessage(e.target.value)}
-      />
-      <Button onClick={sendMessage}>Send</Button>
-      {chatMessages.map((chatMessage, index) => (
-        <MessageBubble
-          key={index}
-          message={chatMessage}
-          renderers={{ code: CodeRenderer }}
+    <Flex direction="column" height="90vh">
+      <Box flex="1" overflowY="auto" ref={chatContainerRef}>
+        {chatMessages.map((chatMessage, index) => (
+          <MessageBubble
+            key={index}
+            message={chatMessage}
+            renderers={{ code: CodeRenderer }}
+          />
+        ))}
+        {currentAssistantMessage && (
+          <MessageBubble
+            message={{ role: "assistant", content: currentAssistantMessage }}
+            renderers={{ code: CodeRenderer }}
+          />
+        )}
+      </Box>
+      <Flex align="center" mt={2}>
+        <Textarea
+          flex="1"
+          placeholder="Enter system message"
+          value={systemMessage}
+          onChange={(e) => setSystemMessage(e.target.value)}
         />
-      ))}
-      {currentAssistantMessage && (
-        <MessageBubble
-          message={{ role: "assistant", content: currentAssistantMessage }}
-          renderers={{ code: CodeRenderer }}
+        <Input
+          flex="1"
+          ml={2}
+          placeholder="Enter your message"
+          value={message}
+          onChange={(e) => setMessage(e.target.value)}
         />
-      )}
-    </Box>
+        <Button onClick={sendMessage}>Send</Button>
+      </Flex>
+    </Flex>
   );
 };
 
