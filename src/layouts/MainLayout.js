@@ -1,3 +1,5 @@
+//MainLayout.js
+
 import React, { useState } from 'react';
 import { Box, useColorMode, useBreakpointValue, Drawer, DrawerOverlay, DrawerContent, DrawerCloseButton, useDisclosure } from '@chakra-ui/react';
 import Header from '../components/Header';
@@ -6,6 +8,8 @@ import { Routes, Route } from 'react-router-dom';
 import HomePage from '../components/HomePage';
 import LoginPage from '../components/LoginPage';
 import ChatGPT from '../components/ChatApp';
+// import MyMarkdownComponent from '../components/MyMarkdownComponent';
+
 
 function MainLayout() {
   const { colorMode } = useColorMode();
@@ -29,6 +33,7 @@ function MainLayout() {
             <Route path="home" element={<HomePage />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/chat" element={<ChatGPT />} />
+            {/* <Route path="/MyMarkdownComponent" element={<MyMarkdownComponent />} /> */}
             {/* ...其他路由 */}
           </Routes>
         </Box>
